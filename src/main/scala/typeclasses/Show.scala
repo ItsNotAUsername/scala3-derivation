@@ -17,11 +17,11 @@ object Show extends Derivation[Show]:
   override def productTypeClass[T](product: ProductType[Show, T]): Show[T] =
     new Show[T]:
       def show(t: T): String =
-        product.fields
+        product.name + product.fields
           .map { field =>
             field.name + ": " + field.typeClass.show(field.extractParam(t))
           }
-          .mkString("{", ", ", "}")
+          .mkString("(", ", ", ")")
         
   given Show[Int] = _.toString
   given Show[String] = identity(_)
